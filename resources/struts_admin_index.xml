@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+		"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="admin_business_domain" namespace="/admin/business/domain" extends="struts-default">
+
+		<interceptors>
+			<!-- 定义拦截器 -->
+			<interceptor name="trimInterceptor" class="com.sjdf.eiss.common.TrimInterceptor"/>
+			<interceptor name="LoginInterceptorAdmin" class="com.sjdf.eiss.common.LoginInterceptorAdmin"/>
+
+			<!-- 定义拦截器栈 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="trimInterceptor"/>
+				<interceptor-ref name="LoginInterceptorAdmin"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 对所有 Action 启用拦截器 -->
+		<default-interceptor-ref name="myStack"/>
+
+		<global-results>
+			<result name="login" type="redirect">/</result>
+			<result name="0">/WEB-INF/templates/default/admin/success.jsp</result>
+			<result name="-1">/WEB-INF/templates/default/admin/error.jsp</result>
+			<result name="error">/WEB-INF/templates/default/admin/error.jsp</result>
+		</global-results>
+
+		<action name="DomainAction" class="com.sjdf.eiss.action.admin.business.domain.DomainAction">
+			<result name="1">/WEB-INF/templates/default/admin/business/domain/domainInfo.jsp</result>
+			<result name="2">/WEB-INF/templates/default/admin/business/domain/sysoperate.jsp</result>
+			<result name="3">/WEB-INF/templates/default/admin/business/domain/search.jsp</result>
+			<result name="4">/WEB-INF/templates/default/admin/business/domain/serachList.jsp</result>
+			<result name="10">/WEB-INF/templates/default/admin/business/domain/operationLog.jsp</result>
+			<result name="11">/WEB-INF/templates/default/admin/business/domain/domain_resolve.jsp</result>
+			<result name="12">/WEB-INF/templates/default/admin/business/domain/operateRecord/operateContactModifyRecordList.jsp</result>
+			<result name="regfile">/WEB-INF/templates/default/admin/business/domain/regfile.jsp</result>
+			<result name="domRenew">/WEB-INF/templates/default/admin/business/domain/domainRenew.jsp</result>
+			<result name="domExpirationDate">/WEB-INF/templates/default/admin/business/domain/verifyDomainList.jsp</result>
+			<result name="redirectList" type="redirect">DomainAction!domainRes.action?page.currentPage=${page.currentPage}&amp;page.pageSize=${page.pageSize}&amp;domainId=${domainId}</result>
+		</action>
+
+		<!-- CN域名查询 -->
+		<action name="DomainCnListAction" class="com.sjdf.eiss.action.admin.business.domain.DomainCnListAction">
+			<!-- <result name="list">/WEB-INF/templates/default/admin/business/domain/list.jsp</result> -->
+			<result name="list">/WEB-INF/templates/default/admin/business/domain/operateRecord/operateRecordList.jsp</result>
+		</action>
+
+		<!-- 域名记录查询 -->
+		<action name="DomainOrderAction" class="com.sjdf.eiss.action.admin.business.domain.DomainOrderAction">
+			<result name="1">/WEB-INF/templates/default/admin/business/domain/operateRecord/operateRecordSearch.jsp</result>
+			<result name="2">/WEB-INF/templates/default/admin/business/domain/operateRecord/operateRecordList.jsp</result>
+			<result name="3">/WEB-INF/templates/default/admin/business/domain/operateRecord/orderRecord.jsp</result>
+			<result name="4">/WEB-INF/templates/default/admin/business/domain/operateRecord/recordIn.jsp</result>
+			<result name="5">/WEB-INF/templates/default/admin/business/domain/operateRecord/recordOut.jsp</result>
+			<result name="6">/WEB-INF/templates/default/admin/business/domain/operateRecord/recordRenew.jsp</result>
+			<result name="7">/WEB-INF/templates/default/admin/business/domain/operateRecord/recordOwner.jsp</result>
+			<result name="8">/WEB-INF/templates/default/admin/business/domain/operateRecord/recordRansom.jsp</result>
+			<result name="transferIn">/WEB-INF/templates/default/admin/business/domain/operateRecord/recordInList.jsp</result>
+		</action>
+
+		<!-- DNS服务器配置 -->
+		<action name="DomainDNSServerDBConfigureAction" class="com.sjdf.eiss.action.admin.business.domain.DomainDNSServerDBConfigureAction">
+			<result name="1">/WEB-INF/templates/default/admin/business/domain/dns_server_list.jsp</result>
+			<result name="2">/WEB-INF/templates/default/admin/business/domain/dns_server_edit.jsp</result>
+		</action>
+
+		<!--通用网址-->
+		<action name="WebsiteAction" class="com.sjdf.eiss.action.admin.business.domain.WebsiteAction">
+			<result name="info">/WEB-INF/templates/default/admin/business/website/info.jsp</result>
+			<result name="renew">/WEB-INF/templates/default/admin/business/website/renew.jsp</result>
+			<result name="sysoperate">/WEB-INF/templates/default/admin/business/website/sysoperate.jsp</result>
+			<result name="log">/WEB-INF/templates/default/admin/business/website/log.jsp</result>
+		</action>
+	</package>
+</struts>

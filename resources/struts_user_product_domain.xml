@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+		"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="user_product_domain" namespace="/user/product/domain" extends="struts-default">
+
+		<interceptors>
+			<!-- 定义拦截器 -->
+			<interceptor name="trimInterceptor" class="com.sjdf.eiss.common.TrimInterceptor"/>
+			<interceptor name="LoginInterceptorUser" class="com.sjdf.eiss.common.LoginInterceptorUser"/>
+
+			<!-- 定义拦截器栈 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="token">
+					<param name="includeMethods">batch</param>
+				</interceptor-ref>
+				<interceptor-ref name="trimInterceptor"/>
+				<interceptor-ref name="LoginInterceptorUser"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="myStack"/>
+		
+		<action name="DomainAction" class="com.timely_new.action.DomainAction">
+			<result name="register">/WEB-INF/templates/hello.jsp</result>
+		</action>
+
+	</package>
+</struts>

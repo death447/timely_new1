@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+		"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="false"/>
+	<constant name="struts.ui.theme" value="simple"/>
+	<constant name="struts.ui.templateDir" value="template"/>
+	<constant name="struts.custom.i18n.resources" value="message"/>
+	<constant name="struts.ui.templateSuffix" value="ftl"/>
+	<constant name="struts.multipart.maxSize" value="20971520"/>
+
+	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor name="trimInterceptor" class="com.timely.common.TrimInterceptor"/>
+			<interceptor name="LoginInterceptorUser" class="com.timely.common.LoginInterceptorUser"/>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="trimInterceptor"/>
+				<interceptor-ref name="LoginInterceptorUser"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"/>
+		<global-results>
+			<result name="login" type="redirect">http://</result>
+			<result name="0">/WEB-INF/templates/default/user/success.jsp</result>
+			<result name="-1">/WEB-INF/templates/default/user/error.jsp</result>
+		</global-results>
+
+		<!-- 会员登录 -->
+		<action name="LoginAction" class="com.sjdf.eiss.action.LoginAction">
+			<interceptor-ref name="trimInterceptor"/>
+			<interceptor-ref name="defaultStack"/>
+			<result name="index" type="redirectAction">
+				<param name="namespace">/index/product</param>
+				<param name="actionName">HomeIndexAction!index.action</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- 后台首页 -->
+	<include file="struts_admin_index.xml"/>
+</struts>
