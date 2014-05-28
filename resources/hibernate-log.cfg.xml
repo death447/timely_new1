@@ -2,9 +2,6 @@
 	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
-<!-- create by 2011-09-05 -->
-<!-- author 陈默涵 -->
-<!-- category 数据库配置 -->
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
